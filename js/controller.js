@@ -20,6 +20,16 @@ pokedexApp.controller('mainController', ['$scope', 'PokemonApi', function ($scop
             $scope.offset += $scope.limit;
         })
     };
+    
+    $scope.pop = false;
+    
+    $scope.popOn = function() {
+        $scope.pop = true;
+    };
+    
+    $scope.popOff = function() {
+        $scope.pop = false;
+    };
 }]);
 
 pokedexApp.controller('pokemonController', ['$scope', '$routeParams', 'PokemonApi', function ($scope, $routeParams, PokemonApi) {
