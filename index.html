@@ -23,7 +23,7 @@
             }
             
             body {
-                padding-top: 170px;
+                padding-top: 10px;
                 height: 100%;
             }
             
@@ -73,25 +73,48 @@
                 height: 30px;
             }
             
+            @media (max-width: 767px) {
+                .hidden-sm-down.popUp {
+                    position: absolute;
+                    display: block!important;
+                    top: 10px;
+                    z-index: 2000;
+                    width: 100%;
+                }
+                
+                .wrapper.popUp {
+                    background-color: rgba(0,0,0,0.5);
+                    position: absolute;
+                    top: 0;
+                    z-index: 1999;
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+            
             @media (min-width: 544px) {
                 body {
                     padding-top: 223px;
+                }
+                
+                .container.content {
+                    max-width: 1200px;
                 }
             }
         </style>
     </head>
     <body ng-controller="mainController">
-        <div class="jumbotron navbar-fixed-top">
+        <div class="jumbotron navbar-fixed-top hidden-sm-down">
             <div class="container text-xs-center">
                 <h1 class="display-3">Pokedex</h1>
             </div>
         </div>
-        <div class="container">
+        <div class="container content">
             <div class="row">
                 <div class="col-xl-6 col-md-6">
                     <div class="row">
                         <div class="col-xl-4 col-lg-6 col-xs-6" ng-repeat="pokemon in pokemons">
-                            <a class="card card-block" ng-href="#/pokemon/{{pokemon.national_id}}">
+                            <a class="card card-block" ng-href="#/pokemon/{{pokemon.national_id}}" ng-click="popOn()">
                                 <div class="img-container">
                                     <img class="card-img-top center-block" ng-src="http://pokeapi.co/media/img/{{pokemon.national_id}}.png" alt="Card image cap">
                                 </div>
@@ -104,8 +127,8 @@
                         <button type="button" class="btn btn-lg btn-block btn-success" ng-click="loadMore()" ng-disabled="isLoadingList" ng-if="total >= offset">Load more</button>
                     </p>
                 </div>
-                <div class="col-xl-6 col-md-6" ng-view>
-                </div>
+                <div class="col-xl-6 col-md-6 hidden-sm-down" ng-view ng-class="{popUp: pop}">Hiiiiiiii</div>
+                <div class="wrapper" ng-class="{popUp: pop}" ng-click="popOff()">{{pop}}</div>
             </div>
         </div>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
