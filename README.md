@@ -5,7 +5,7 @@ A pokemon searching tool.
 
 ### Clone pokemon-app
 
-Clone the pokemon-app repository using [git][git]:
+Clone the pokemon-app repository using [git](https://git-scm.com/):
 
 ```
 git clone https://github.com/lolochka/pokemon-app.git
@@ -14,7 +14,7 @@ cd pokemon-app
 
 ### Install server
 
-Via `npm`, the [node package manager][npm], install [http-server](https://github.com/indexzero/http-server).
+Via `npm`, the [node package manager](https://nodejs.org/en/), install [http-server](https://github.com/indexzero/http-server).
 
 ```
 npm install http-server -g
