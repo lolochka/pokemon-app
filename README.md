@@ -26,7 +26,7 @@ This will install `http-server` globally so that it may be run from the command 
 ### Run app
 
 ```
-http-server [application path]
+http-server [path to app]
 ```
 
 ## Have fun :clap:
