@@ -122,13 +122,18 @@
         <div class="jumbotron navbar-fixed-top hidden-sm-down">
             <div class="container text-xs-center">
                 <h1 class="display-3">Pokedex</h1>
+                <select ng-model="search">
+                    <option value="">Choose type</option>
+                    <option ng-repeat="type in types" ng-value="{{type.name}}">{{type.name}}</option>
+                </select>
+                {{search}}
             </div>
         </div>
         <div class="container content">
             <div class="row">
                 <div class="col-xl-6 col-md-6">
                     <div class="row">
-                        <div class="col-xl-4 col-lg-6 col-xs-6" ng-repeat="pokemon in pokemons">
+                        <div class="col-xl-4 col-lg-6 col-xs-6" ng-repeat="pokemon in pokemons | filter: search">
                             <a class="card card-block" ng-href="#/pokemon/{{pokemon.national_id}}" ng-click="popOn()">
                                 <div class="img-container">
                                     <img class="card-img-top center-block" ng-src="http://pokeapi.co/media/img/{{pokemon.national_id}}.png" alt="Card image cap">

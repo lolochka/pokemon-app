@@ -1,16 +1,20 @@
 pokedexApp.factory('PokemonApi', ['$http', function ($http) {
     var api = {},
-        url = 'http://pokeapi.co/api/v1/pokemon/';
+        url = 'http://pokeapi.co/api/v1/';
     
     api.getAll = function (options) {
-        return $http.get(url, {
+        return $http.get(url + 'pokemon/', {
             params: options,
             data: {req: 'all'}
         });
     };
     
     api.get = function (id) {
-        return $http.get(url + id, {data: {req: 'single'}});
+        return $http.get(url + 'pokemon/' + id, {data: {req: 'single'}});
+    };
+    
+    api.getTypes = function () {
+        return $http.get(url + 'type/', {params: {limit: 999}});
     };
     
     return api;
