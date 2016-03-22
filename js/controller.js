@@ -1,4 +1,4 @@
-pokedexApp.controller('mainController', ['$scope', 'PokemonApi', function ($scope, PokemonApi) {
+pokedexApp.controller('mainController', ['$scope', '$filter', 'PokemonApi', 'ColorSevice', function ($scope, $filter, PokemonApi, ColorSevice) {
     
     $scope.limit = 12;
     $scope.offset = $scope.limit;
@@ -23,19 +23,33 @@ pokedexApp.controller('mainController', ['$scope', 'PokemonApi', function ($scop
     
     PokemonApi.getTypes().success(function (data) {
         var types = data.objects;
+        types.map(function(obj){
+            obj.color = ColorSevice.getHsvGolden(0.5, 0.8).toRgbString();
+        });
         $scope.types= types;
-        console.log(types);
     });
     
     $scope.pop = false;
     
-    $scope.popOn = function () {
-        $scope.pop = true;
+    $scope.popToggle = function () {
+        $scope.pop = !$scope.pop;
     };
     
-    $scope.popOff = function () {
-        $scope.pop = false;
+    $scope.typeFilter = function (data) {
+        $scope.search = {
+            types: {
+                name: data
+            }
+        }
     };
+    
+    $scope.colorType = function(type) {
+        var type = $filter('filter')($scope.types, {name: type});
+        if (type) {
+            return type[0].color;
+        }
+    }
+    
 }]);
 
 pokedexApp.controller('pokemonController', ['$scope', '$routeParams', 'PokemonApi', function ($scope, $routeParams, PokemonApi) {

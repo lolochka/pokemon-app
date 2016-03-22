@@ -27,6 +27,10 @@
                 height: 100%;
             }
             
+            .jumbotron {
+                padding: 0.5rem 1rem;
+            }
+            
             .container {
                 height: 100%;
             }
@@ -54,8 +58,9 @@
                 max-height: 100%;
             }
             
-            .card .label {
+            .label {
                 margin-right: .25rem;
+                cursor: pointer;
             }
             
             ::-webkit-scrollbar {
@@ -85,7 +90,7 @@
             @media (max-width: 767px) {
                 
                 body {
-                    padding-top: 10px;
+                    padding-top: 140px;
                 }
                 
                 .hidden-sm-down.popUp {
@@ -115,23 +120,27 @@
                 .container.content {
                     max-width: 1200px;
                 }
+                
+                .jumbotron {
+                    padding: 2rem;
+                }
+                
+                .jumbotron .container {
+                    max-width: 700px;
+                }
             }
         </style>
     </head>
     <body ng-controller="mainController">
-        <div class="jumbotron navbar-fixed-top hidden-sm-down">
+        <div class="jumbotron navbar-fixed-top">
             <div class="container text-xs-center">
-                <h1 class="display-3">Pokedex</h1>
-                <select ng-model="search">
-                    <option value="">Choose type</option>
-                    <option ng-repeat="type in types" ng-value="{{type.name}}">{{type.name}}</option>
-                </select>
-                {{search}}
+                <h1 class="display-3 hidden-sm-down">Pokedex</h1>
+                <div><span class="label label-default" ng-click="typeFilter('')">All</span><span ng-repeat="type in types" class="label label-primary" ng-click="typeFilter(type.name)" ng-style="{'background-color': type.color}">{{type.name}}</span></div>
             </div>
         </div>
         <div class="container content">
             <div class="row">
-                <div class="col-xl-6 col-md-6">
+                <div class="col-xl-6 col-md-6">                    
                     <div class="row">
                         <div class="col-xl-4 col-lg-6 col-xs-6" ng-repeat="pokemon in pokemons | filter: search">
                             <a class="card card-block" ng-href="#/pokemon/{{pokemon.national_id}}" ng-click="popOn()">
@@ -139,7 +148,7 @@
                                     <img class="card-img-top center-block" ng-src="http://pokeapi.co/media/img/{{pokemon.national_id}}.png" alt="Card image cap">
                                 </div>
                                 <p class="card-title">{{pokemon.name}}</p>
-                                <span ng-repeat="type in pokemon.types" class="label label-primary">{{type.name}}</span>
+                                <span ng-repeat="type in pokemon.types" class="label label-primary" ng-style="{'background-color': colorType(type.name)}">{{type.name}} {{type.id}}</span>
                             </a>
                         </div>
                     </div>
@@ -148,8 +157,8 @@
                     </p>
                 </div>
                 <div class="col-xl-6 col-md-6 hidden-sm-down" ng-view ng-class="{popUp: pop}"></div>
-                <div class="wrapper" ng-class="{popUp: pop}" ng-click="popOff()">{{pop}}</div>
-                <button type="button" class="close" aria-label="Close" ng-click="popOff()" ng-class="{popUp: pop}">
+                <div class="wrapper" ng-class="{popUp: pop}" ng-click="popToggle()">{{pop}}</div>
+                <button type="button" class="close" aria-label="Close" ng-click="popToggle()" ng-class="{popUp: pop}">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
