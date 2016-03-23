@@ -1,5 +1,7 @@
 pokedexApp.controller('mainController', ['$scope', '$filter', 'PokemonApi', 'ColorSevice', function ($scope, $filter, PokemonApi, ColorSevice) {
     
+    $scope.pop = false;
+    $scope.errorSrc = '/img/pokemon.png';
     $scope.limit = 12;
     $scope.offset = $scope.limit;
     
@@ -29,7 +31,7 @@ pokedexApp.controller('mainController', ['$scope', '$filter', 'PokemonApi', 'Col
         $scope.types= types;
     });
     
-    $scope.pop = false;
+    
     
     $scope.popToggle = function () {
         $scope.pop = !$scope.pop;
@@ -57,5 +59,7 @@ pokedexApp.controller('pokemonController', ['$scope', '$routeParams', 'PokemonAp
     PokemonApi.get($routeParams.id).success(function (data) {
         $scope.pokemon = data;
     });
+    
+    $scope.errorSrc = '/img/pokemon.png';
     
 }]);

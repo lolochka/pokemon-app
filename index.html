@@ -11,8 +11,12 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="">
         
-        <!-- Scripts -->
-        <script src=""></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+        <script src="https://code.angularjs.org/1.5.0/angular-route.min.js"></script>
+        <script src="js/app.js"></script>
+        <script src="js/services.js"></script>
+        <script src="js/controller.js"></script>
+        <script src="js/directives.js"></script>
         
         <link rel="shortcut icon" href="">
         
@@ -145,7 +149,7 @@
                         <div class="col-xl-4 col-lg-6 col-xs-6" ng-repeat="pokemon in pokemons | filter: search">
                             <a class="card card-block" ng-href="#/pokemon/{{pokemon.national_id}}" ng-click="popToggle()">
                                 <div class="img-container">
-                                    <img class="card-img-top center-block" ng-src="http://pokeapi.co/media/img/{{pokemon.national_id}}.png" alt="Card image cap">
+                                    <img class="card-img-top center-block" ng-src="http://pokeapi.co/media/img/{{pokemon.national_id}}.png" on-error-src="{{errorSrc}}" alt="Card image cap">
                                 </div>
                                 <p class="card-title">{{pokemon.name}}</p>
                                 <span ng-repeat="type in pokemon.types" class="label label-primary" ng-style="{'background-color': colorType(type.name)}">{{type.name}} {{type.id}}</span>
@@ -163,10 +167,5 @@
                 </button>
             </div>
         </div>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
-        <script src="https://code.angularjs.org/1.5.0/angular-route.min.js"></script>
-        <script src="js/app.js"></script>
-        <script src="js/services.js"></script>
-        <script src="js/controller.js"></script>
     </body>
 </html>
