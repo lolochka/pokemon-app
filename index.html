@@ -13,6 +13,7 @@
         
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
         <script src="https://code.angularjs.org/1.5.0/angular-route.min.js"></script>
+        <script src="https://code.angularjs.org/1.5.2/angular-animate.min.js"></script>
         <script src="js/app.js"></script>
         <script src="js/services.js"></script>
         <script src="js/controller.js"></script>
@@ -21,6 +22,22 @@
         <link rel="shortcut icon" href="">
         
         <style>
+/*            .ng-enter,*/
+            .ng-leave {
+                -webkit-transition:0.3s linear all;
+                transition:0.3s linear all;
+            }
+            
+/*            .ng-enter,*/
+            .ng-leave.ng-leave-active {
+                opacity:0;
+            }
+            
+/*            .ng-leave,*/
+            .ng-enter.ng-enter-active {
+                opacity:1;
+            }
+            
             html {
                 height: 100%;
                 overflow:hidden;
@@ -33,6 +50,7 @@
             
             .jumbotron {
                 padding: 0.5rem 1rem;
+                border-radius: 0;
             }
             
             .container {
@@ -90,11 +108,24 @@
                 display: none;
             } 
             
+            a.card {
+                color: #000;
+            }
+            
+            .card.active, a.card:focus, a.card:hover {
+                background-color: #ECF0F1;
+                color: #000;
+                text-decoration: none;
+            }
+            
+            .label.active {
+                border: 2px solid #ABB7B7;
+            }
             
             @media (max-width: 767px) {
                 
                 body {
-                    padding-top: 140px;
+                    padding-top: 100px;
                 }
                 
                 .hidden-sm-down.popUp {
@@ -139,7 +170,7 @@
         <div class="jumbotron navbar-fixed-top">
             <div class="container text-xs-center">
                 <h1 class="display-3 hidden-sm-down">Pokedex</h1>
-                <div><span class="label label-default" ng-click="typeFilter('')">All</span><span ng-repeat="type in types" class="label label-primary" ng-click="typeFilter(type.name)" ng-style="{'background-color': type.color}">{{type.name}}</span></div>
+                <div><span class="label label-default" ng-click="typeFilter('')">All</span><span ng-repeat="type in types" class="label" ng-click="typeFilter(type)" ng-style="{'background-color': type.color}" ng-class="{'active': isActive('type',type)}" ng-if="checkType(type)">{{type.name}}</span></div>
             </div>
         </div>
         <div class="container content">
@@ -147,7 +178,7 @@
                 <div class="col-xl-6 col-md-6">                    
                     <div class="row">
                         <div class="col-xl-4 col-lg-6 col-xs-6" ng-repeat="pokemon in pokemons | filter: search">
-                            <a class="card card-block" ng-href="#/pokemon/{{pokemon.national_id}}" ng-click="popToggle()">
+                            <a class="card card-block" ng-href="#/pokemon/{{pokemon.national_id}}" ng-click="showPokemon(pokemon)" ng-class="{'active': isActive('pokemon',pokemon)}">
                                 <div class="img-container">
                                     <img class="card-img-top center-block" ng-src="http://pokeapi.co/media/img/{{pokemon.national_id}}.png" on-error-src="{{errorSrc}}" alt="Pokemon img">
                                 </div>
@@ -157,7 +188,7 @@
                         </div>
                     </div>
                     <p>
-                        <button type="button" class="btn btn-lg btn-block btn-success" ng-click="loadMore()" ng-disabled="isLoadingList" ng-if="total > offset">Load more</button>
+                        <button type="button" class="btn btn-lg btn-block btn-primary" ng-click="loadMore()" ng-disabled="isLoadingList" ng-if="total > offset">Load more</button>
                     </p>
                 </div>
                 <div class="col-xl-6 col-md-6 hidden-sm-down" ng-view ng-class="{popUp: pop}"></div>

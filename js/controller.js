@@ -4,12 +4,20 @@ pokedexApp.controller('mainController', ['$scope', '$filter', 'PokemonApi', 'Col
     $scope.errorSrc = '/img/pokemon.png';
     $scope.limit = 12;
     $scope.offset = $scope.limit;
+    $scope.selected = {};
     
     PokemonApi.getAll({
         limit: $scope.limit
     }).success(function (data) {
         $scope.total = data.meta.total_count;
         $scope.pokemons = data.objects;
+        PokemonApi.getTypes().success(function (data) {
+            var types = data.objects;
+            types.map(function(obj){
+                obj.color = ColorSevice.getHsvGolden(0.5, 0.8).toRgbString();
+            });
+            $scope.types= types;
+        });
     });
     
     $scope.loadMore = function () {
@@ -22,25 +30,19 @@ pokedexApp.controller('mainController', ['$scope', '$filter', 'PokemonApi', 'Col
             $scope.offset += $scope.limit;
         });
     };
-    
-    PokemonApi.getTypes().success(function (data) {
-        var types = data.objects;
-        types.map(function(obj){
-            obj.color = ColorSevice.getHsvGolden(0.5, 0.8).toRgbString();
-        });
-        $scope.types= types;
-    });
       
     $scope.popToggle = function () {
         $scope.pop = !$scope.pop;
     };
     
+    $scope.showPokemon = function (item) {
+        $scope.popToggle();
+        $scope.selected.pokemon = item;
+    }
+    
     $scope.typeFilter = function (data) {
-        $scope.search = {
-            types: {
-                name: data
-            }
-        };
+        $scope.search = {types: {name: data.name}};
+        $scope.selected.type = data;
     };
     
     $scope.colorType = function(type) {
@@ -50,6 +52,13 @@ pokedexApp.controller('mainController', ['$scope', '$filter', 'PokemonApi', 'Col
         }
     };
     
+    $scope.isActive = function(name,item) {
+        return $scope.selected[name] === item;
+    };
+    
+    $scope.checkType = function(item) {
+        return $filter('filter')($scope.pokemons, {types: {name: item.name}}).length > 0;
+    };
 }]);
 
 pokedexApp.controller('pokemonController', ['$scope', '$routeParams', 'PokemonApi', function ($scope, $routeParams, PokemonApi) {
