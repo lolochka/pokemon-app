@@ -30,9 +30,7 @@ pokedexApp.controller('mainController', ['$scope', '$filter', 'PokemonApi', 'Col
         });
         $scope.types= types;
     });
-    
-    
-    
+      
     $scope.popToggle = function () {
         $scope.pop = !$scope.pop;
     };
@@ -42,7 +40,7 @@ pokedexApp.controller('mainController', ['$scope', '$filter', 'PokemonApi', 'Col
             types: {
                 name: data
             }
-        }
+        };
     };
     
     $scope.colorType = function(type) {
@@ -50,7 +48,7 @@ pokedexApp.controller('mainController', ['$scope', '$filter', 'PokemonApi', 'Col
         if (type) {
             return type[0].color;
         }
-    }
+    };
     
 }]);
 

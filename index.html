@@ -149,7 +149,7 @@
                         <div class="col-xl-4 col-lg-6 col-xs-6" ng-repeat="pokemon in pokemons | filter: search">
                             <a class="card card-block" ng-href="#/pokemon/{{pokemon.national_id}}" ng-click="popToggle()">
                                 <div class="img-container">
-                                    <img class="card-img-top center-block" ng-src="http://pokeapi.co/media/img/{{pokemon.national_id}}.png" on-error-src="{{errorSrc}}" alt="Card image cap">
+                                    <img class="card-img-top center-block" ng-src="http://pokeapi.co/media/img/{{pokemon.national_id}}.png" on-error-src="{{errorSrc}}" alt="Pokemon img">
                                 </div>
                                 <p class="card-title">{{pokemon.name}}</p>
                                 <span ng-repeat="type in pokemon.types" class="label label-primary" ng-style="{'background-color': colorType(type.name)}">{{type.name}} {{type.id}}</span>
@@ -157,14 +157,14 @@
                         </div>
                     </div>
                     <p>
-                        <button type="button" class="btn btn-lg btn-block btn-success" ng-click="loadMore()" ng-disabled="isLoadingList" ng-if="total >= offset">Load more</button>
+                        <button type="button" class="btn btn-lg btn-block btn-success" ng-click="loadMore()" ng-disabled="isLoadingList" ng-if="total > offset">Load more</button>
                     </p>
                 </div>
                 <div class="col-xl-6 col-md-6 hidden-sm-down" ng-view ng-class="{popUp: pop}"></div>
-                <div class="wrapper" ng-class="{popUp: pop}" ng-click="popToggle()">{{pop}}</div>
                 <button type="button" class="close" aria-label="Close" ng-click="popToggle()" ng-class="{popUp: pop}">
                     <span aria-hidden="true">&times;</span>
                 </button>
+                <div class="wrapper" ng-class="{popUp: pop}" ng-click="popToggle()"></div>
             </div>
         </div>
     </body>
