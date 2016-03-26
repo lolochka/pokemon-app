@@ -4,7 +4,7 @@ pokedexApp.config(['$routeProvider', function ($routeProvider) {
     
     $routeProvider
     
-    .when('/', {
+    .when('/pokemons', {
         templateUrl: 'views/main.html',
         controller: 'mainController'
     })
@@ -12,6 +12,14 @@ pokedexApp.config(['$routeProvider', function ($routeProvider) {
     .when('/pokemon/:id', {
         templateUrl: 'views/pokemon-info.html',
         controller: 'pokemonController'
+    })
+    
+    .when('/404', {
+        templateUrl: 'views/404.html'
+    })
+    
+    .otherwise({
+        redirectTo: '/pokemons'
     })
     
 }]);

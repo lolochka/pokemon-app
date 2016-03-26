@@ -75,10 +75,12 @@ pokedexApp.controller('mainController', ['$scope', '$filter', 'PokemonApi', 'Col
     };
 }]);
 
-pokedexApp.controller('pokemonController', ['$scope', '$routeParams', 'PokemonApi', function ($scope, $routeParams, PokemonApi) {
+pokedexApp.controller('pokemonController', ['$scope', '$routeParams', 'PokemonApi', '$location', function ($scope, $routeParams, PokemonApi, $location) {
     
     PokemonApi.get($routeParams.id).success(function (data) {
         $scope.pokemon = data;
+    }).error(function(){
+        $location.path("/404").replace();
     });
     
     $scope.errorSrc = '/img/logo.svg';
