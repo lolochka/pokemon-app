@@ -109,7 +109,7 @@ button.loading:disabled {
 
 .spinner {
     content: "";
-    background-image: url(/img/logo.svg);
+    background-image: url(../img/logo.svg);
     height: 120px;
     width: 120px;
     margin: 120px auto;

@@ -1,7 +1,7 @@
 pokedexApp.controller('mainController', ['$scope', '$filter', 'PokemonApi', 'ColorSevice', function ($scope, $filter, PokemonApi, ColorSevice) {
     
     $scope.pop = false;
-    $scope.errorSrc = '/img/logo.svg';
+    $scope.errorSrc = 'img/logo.svg';
     $scope.selected = {};
     
     $scope.limit = 12;
@@ -83,6 +83,6 @@ pokedexApp.controller('pokemonController', ['$scope', '$routeParams', 'PokemonAp
         $location.path("/404").replace();
     });
     
-    $scope.errorSrc = '/img/logo.svg';
+    $scope.errorSrc = 'img/logo.svg';
     
 }]);
