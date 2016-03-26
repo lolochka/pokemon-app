@@ -1,47 +1,49 @@
-<!--<div ng-if="isLoadingSingle">Loading</div>-->
-<div class="card card-block" ng-cloak ng-if="!isLoadingSingle">
-    <div class="img-container">
-        <img class="card-img-top center-block" ng-src="http://pokeapi.co/media/img/{{pokemon.national_id}}.png" on-error-src="{{errorSrc}}"  alt="{{pokemon.name}} photo">
+<div class="card card-block single-card" ng-cloak>
+    <div ng-if="isLoadingSingle" class="spinner"></div>
+    <div ng-if="!isLoadingSingle">
+        <div class="img-container">
+            <img class="card-img-top center-block" ng-src="http://pokeapi.co/media/img/{{pokemon.national_id}}.png" on-error-src="{{errorSrc}}"  alt="{{pokemon.name}} photo">
+        </div>
+        <h3 class="card-title">{{pokemon.name}}</h3>
+        <table class="table">
+            <tbody>
+                <tr>
+                  <th scope="row">Type</th>
+                  <td><b ng-repeat="type in pokemon.types">{{type.name}}{{$last ? '' : ', '}}</b></td>
+                </tr>
+                <tr>
+                  <th scope="row">Attack</th>
+                  <td>{{pokemon.attack}}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Defense</th>
+                  <td>{{pokemon.defense}}</td>
+                </tr>
+                <tr>
+                  <th scope="row">HP</th>
+                  <td>{{pokemon.hp}}</td>
+                </tr>
+                <tr>
+                  <th scope="row">SP Attack</th>
+                  <td>{{pokemon.sp_atk}}</td>
+                </tr>
+                <tr>
+                  <th scope="row">SP Defense</th>
+                  <td>{{pokemon.sp_def}}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Speed</th>
+                  <td>{{pokemon.speed}}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Weight</th>
+                  <td>{{pokemon.weight}}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Total moves</th>
+                  <td>{{pokemon.moves.length}}</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
-    <h3 class="card-title">{{pokemon.name}}</h3>
-    <table class="table">
-        <tbody>
-            <tr>
-              <th scope="row">Type</th>
-              <td><b ng-repeat="type in pokemon.types">{{type.name}}{{$last ? '' : ', '}}</b></td>
-            </tr>
-            <tr>
-              <th scope="row">Attack</th>
-              <td>{{pokemon.attack}}</td>
-            </tr>
-            <tr>
-              <th scope="row">Defense</th>
-              <td>{{pokemon.defense}}</td>
-            </tr>
-            <tr>
-              <th scope="row">HP</th>
-              <td>{{pokemon.hp}}</td>
-            </tr>
-            <tr>
-              <th scope="row">SP Attack</th>
-              <td>{{pokemon.sp_atk}}</td>
-            </tr>
-            <tr>
-              <th scope="row">SP Defense</th>
-              <td>{{pokemon.sp_def}}</td>
-            </tr>
-            <tr>
-              <th scope="row">Speed</th>
-              <td>{{pokemon.speed}}</td>
-            </tr>
-            <tr>
-              <th scope="row">Weight</th>
-              <td>{{pokemon.weight}}</td>
-            </tr>
-            <tr>
-              <th scope="row">Total moves</th>
-              <td>{{pokemon.moves.length}}</td>
-            </tr>
-        </tbody>
-    </table>
 </div>

@@ -1,4 +1,4 @@
-var pokedexApp = angular.module('pokedexApp', ['ngRoute', 'ngAnimate']);
+var pokedexApp = angular.module('pokedexApp', ['ngRoute']);
 
 pokedexApp.config(['$routeProvider', function ($routeProvider) {
     
@@ -16,6 +16,7 @@ pokedexApp.config(['$routeProvider', function ($routeProvider) {
     
 }]);
 
+//add loading interceptor
 pokedexApp.config(['$httpProvider',function($httpProvider){
     delete $httpProvider.defaults.headers.common['X-Requested-With'];
     $httpProvider.interceptors.push('HttpInterceptor');

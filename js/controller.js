@@ -1,11 +1,13 @@
 pokedexApp.controller('mainController', ['$scope', '$filter', 'PokemonApi', 'ColorSevice', function ($scope, $filter, PokemonApi, ColorSevice) {
     
     $scope.pop = false;
-    $scope.errorSrc = '/img/pokemon.png';
-    $scope.limit = 12;
-    $scope.offset = $scope.limit;
+    $scope.errorSrc = '/img/logo.svg';
     $scope.selected = {};
     
+    $scope.limit = 12;
+    $scope.offset = $scope.limit;
+    
+    //get pokemons and their types
     PokemonApi.getAll({
         limit: $scope.limit
     }).success(function (data) {
@@ -20,6 +22,7 @@ pokedexApp.controller('mainController', ['$scope', '$filter', 'PokemonApi', 'Col
         });
     });
     
+    //loading more pokemons
     $scope.loadMore = function () {
         PokemonApi.getAll({
             limit: $scope.limit,
@@ -30,21 +33,15 @@ pokedexApp.controller('mainController', ['$scope', '$filter', 'PokemonApi', 'Col
             $scope.offset += $scope.limit;
         });
     };
-      
-    $scope.popToggle = function () {
-        $scope.pop = !$scope.pop;
-    };
     
-    $scope.showPokemon = function (item) {
-        $scope.popToggle();
-        $scope.selected.pokemon = item;
-    }
-    
+    //filtering pokemon by types
     $scope.typeFilter = function (data) {
         $scope.search = {types: {name: data.name}};
         $scope.selected.type = data;
     };
     
+    
+    //coloring types labels
     $scope.colorType = function(type) {
         var type = $filter('filter')($scope.types, {name: type});
         if (type) {
@@ -52,12 +49,29 @@ pokedexApp.controller('mainController', ['$scope', '$filter', 'PokemonApi', 'Col
         }
     };
     
-    $scope.isActive = function(name,item) {
-        return $scope.selected[name] === item;
-    };
-    
+    //show only actual types
     $scope.checkType = function(item) {
         return $filter('filter')($scope.pokemons, {types: {name: item.name}}).length > 0;
+    };
+    
+    //show single pokemon
+    $scope.showPokemon = function (item) {
+        $scope.popUp();
+        $scope.selected.pokemon = item;
+    }
+    
+    //pop up for responsive view
+    $scope.popUp = function () {
+        $scope.pop = true;
+    };
+    
+    $scope.popDown = function () {
+        $scope.pop = false;
+    };
+    
+    //check if thi pokemon selected
+    $scope.isActive = function(name,item) {
+        return $scope.selected[name] === item;
     };
 }]);
 
@@ -67,6 +81,6 @@ pokedexApp.controller('pokemonController', ['$scope', '$routeParams', 'PokemonAp
         $scope.pokemon = data;
     });
     
-    $scope.errorSrc = '/img/pokemon.png';
+    $scope.errorSrc = '/img/logo.svg';
     
 }]);

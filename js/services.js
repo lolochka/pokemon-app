@@ -21,7 +21,8 @@ pokedexApp.factory('PokemonApi', ['$http', function ($http) {
     return api;
 }]);
 
-//Random color generator 
+
+//Interceptor or data loading indication 
 pokedexApp.factory('HttpInterceptor', ['$rootScope', '$q', '$timeout', function ($rootScope, $q, $timeout) {
 
     return {
