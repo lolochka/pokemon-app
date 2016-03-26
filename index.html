@@ -11,12 +11,33 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="">
         
-        <!-- Scripts -->
-        <script src=""></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+        <script src="https://code.angularjs.org/1.5.0/angular-route.min.js"></script>
+        <script src="https://code.angularjs.org/1.5.2/angular-animate.min.js"></script>
+        <script src="js/app.js"></script>
+        <script src="js/services.js"></script>
+        <script src="js/controller.js"></script>
+        <script src="js/directives.js"></script>
         
         <link rel="shortcut icon" href="">
         
         <style>
+/*            .ng-enter,*/
+            .ng-leave {
+                -webkit-transition:0.3s linear all;
+                transition:0.3s linear all;
+            }
+            
+/*            .ng-enter,*/
+            .ng-leave.ng-leave-active {
+                opacity:0;
+            }
+            
+/*            .ng-leave,*/
+            .ng-enter.ng-enter-active {
+                opacity:1;
+            }
+            
             html {
                 height: 100%;
                 overflow:hidden;
@@ -28,6 +49,7 @@
             
             .jumbotron {
                 padding: 0.5rem 1rem;
+                border-radius: 0;
             }
             
             .content {
@@ -85,6 +107,19 @@
                 display: none;
             } 
             
+            a.card {
+                color: #000;
+            }
+            
+            .card.active, a.card:focus, a.card:hover {
+                background-color: #ECF0F1;
+                color: #000;
+                text-decoration: none;
+            }
+            
+            .label.active {
+                border: 2px solid #ABB7B7;
+            }
             
             @media (max-width: 767px) {
                 
@@ -130,7 +165,7 @@
         <div class="jumbotron">
             <div class="container text-xs-center">
                 <h1 class="display-3 hidden-sm-down">Pokedex</h1>
-                <div><span class="label label-default" ng-click="typeFilter('')">All</span><span ng-repeat="type in types" class="label label-primary" ng-click="typeFilter(type.name)" ng-style="{'background-color': type.color}">{{type.name}}</span></div>
+                <div><span class="label label-default" ng-click="typeFilter('')">All</span><span ng-repeat="type in types" class="label" ng-click="typeFilter(type)" ng-style="{'background-color': type.color}" ng-class="{'active': isActive('type',type)}" ng-if="checkType(type)">{{type.name}}</span></div>
             </div>
         </div>
         <div class="container content">
@@ -138,9 +173,9 @@
                 <div class="col-xl-6 col-md-6">                    
                     <div class="row">
                         <div class="col-xl-4 col-lg-6 col-xs-6" ng-repeat="pokemon in pokemons | filter: search">
-                            <a class="card card-block" ng-href="#/pokemon/{{pokemon.national_id}}" ng-click="popToggle()">
+                            <a class="card card-block" ng-href="#/pokemon/{{pokemon.national_id}}" ng-click="showPokemon(pokemon)" ng-class="{'active': isActive('pokemon',pokemon)}">
                                 <div class="img-container">
-                                    <img class="card-img-top center-block" ng-src="http://pokeapi.co/media/img/{{pokemon.national_id}}.png" alt="Card image cap">
+                                    <img class="card-img-top center-block" ng-src="http://pokeapi.co/media/img/{{pokemon.national_id}}.png" on-error-src="{{errorSrc}}" alt="Pokemon img">
                                 </div>
                                 <p class="card-title">{{pokemon.name}}</p>
                                 <span ng-repeat="type in pokemon.types" class="label label-primary" ng-style="{'background-color': colorType(type.name)}">{{type.name}} {{type.id}}</span>
@@ -148,20 +183,15 @@
                         </div>
                     </div>
                     <p>
-                        <button type="button" class="btn btn-lg btn-block btn-success" ng-click="loadMore()" ng-disabled="isLoadingList" ng-if="total >= offset">Load more</button>
+                        <button type="button" class="btn btn-lg btn-block btn-primary" ng-click="loadMore()" ng-disabled="isLoadingList" ng-if="total > offset">Load more</button>
                     </p>
                 </div>
                 <div class="col-xl-6 col-md-6 hidden-sm-down" ng-view ng-class="{popUp: pop}"></div>
-                <div class="wrapper" ng-class="{popUp: pop}" ng-click="popToggle()">{{pop}}</div>
                 <button type="button" class="close" aria-label="Close" ng-click="popToggle()" ng-class="{popUp: pop}">
                     <span aria-hidden="true">&times;</span>
                 </button>
+                <div class="wrapper" ng-class="{popUp: pop}" ng-click="popToggle()"></div>
             </div>
         </div>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
-        <script src="https://code.angularjs.org/1.5.0/angular-route.min.js"></script>
-        <script src="js/app.js"></script>
-        <script src="js/services.js"></script>
-        <script src="js/controller.js"></script>
     </body>
 </html>

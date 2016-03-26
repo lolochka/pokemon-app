@@ -1,7 +1,7 @@
-<div ng-if="isLoadingSingle">Loading</div>
+<!--<div ng-if="isLoadingSingle">Loading</div>-->
 <div class="card card-block" ng-cloak ng-if="!isLoadingSingle">
     <div class="img-container">
-        <img class="card-img-top center-block" ng-src="http://pokeapi.co/media/img/{{pokemon.national_id}}.png" alt="Card image cap">
+        <img class="card-img-top center-block" ng-src="http://pokeapi.co/media/img/{{pokemon.national_id}}.png" on-error-src="{{errorSrc}}"  alt="{{pokemon.name}} photo">
     </div>
     <h3 class="card-title">{{pokemon.name}}</h3>
     <table class="table">

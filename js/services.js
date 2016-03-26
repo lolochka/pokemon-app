@@ -1,3 +1,4 @@
+//API requests
 pokedexApp.factory('PokemonApi', ['$http', function ($http) {
     var api = {},
         url = 'http://pokeapi.co/api/v1/';
@@ -20,6 +21,7 @@ pokedexApp.factory('PokemonApi', ['$http', function ($http) {
     return api;
 }]);
 
+//Random color generator 
 pokedexApp.factory('HttpInterceptor', ['$rootScope', '$q', '$timeout', function ($rootScope, $q, $timeout) {
 
     return {
@@ -52,18 +54,8 @@ pokedexApp.factory('HttpInterceptor', ['$rootScope', '$q', '$timeout', function 
     };
 }]);
 
+//Random color generator
 pokedexApp.factory('ColorSevice', [function() {
-    function getRandom255() {
-        return Math.round(Math.random() * 255);
-    }
-
-    function convertDecToHex(number) {
-        var result = number.toString(16);
-        if (result.length == 1) {
-            result = '0' + result;
-        }
-        return result;
-    }
 
     function convertHsvToRgb(h, s, v) {
         var r, g, b;
@@ -90,42 +82,14 @@ pokedexApp.factory('ColorSevice', [function() {
         this.r = r;
         this.g = g;
         this.b = b;
-    }
-
-    WebColor.prototype.toRgb = function() {
-        return [this.r, this.g, this.b];
     };
 
     WebColor.prototype.toRgbString = function() {
         return 'rgb(' + this.r + ', ' + this.g + ', ' + this.b + ')';
     };
 
-    WebColor.prototype.toHexString = function() {
-        return '#' +
-        convertDecToHex(this.r) +
-        convertDecToHex(this.g) +
-        convertDecToHex(this.b);
-    };
-
-    WebColor.prototype.toString = function() {
-        return this.toHexString();
-    };
-
-    WebColor.prototype.toJSON = function() {
-        return this.toHexString();
-    };
-
     var GoldenColors = function() {
         this.goldenRatioConjugate = 0.618033988749895;
-    };
-
-    GoldenColors.prototype.getNaive = function() {
-        return new WebColor(getRandom255(), getRandom255(), getRandom255());
-    };
-
-    GoldenColors.prototype.getHsvSimple = function(s, v) {
-        var color = convertHsvToRgb(Math.random(), s, v);
-        return new WebColor(color[0], color[1], color[2]);
     };
 
     GoldenColors.prototype.getHsvGolden = function(s, v) {
