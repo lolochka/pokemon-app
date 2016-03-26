@@ -23,7 +23,6 @@
             }
             
             body {
-                padding-top: 223px;
                 height: 100%;
             }
             
@@ -31,7 +30,7 @@
                 padding: 0.5rem 1rem;
             }
             
-            .container {
+            .content {
                 height: 100%;
             }
             
@@ -89,10 +88,6 @@
             
             @media (max-width: 767px) {
                 
-                body {
-                    padding-top: 140px;
-                }
-                
                 .hidden-sm-down.popUp {
                     position: absolute;
                     display: block!important;
@@ -132,7 +127,7 @@
         </style>
     </head>
     <body ng-controller="mainController">
-        <div class="jumbotron navbar-fixed-top">
+        <div class="jumbotron">
             <div class="container text-xs-center">
                 <h1 class="display-3 hidden-sm-down">Pokedex</h1>
                 <div><span class="label label-default" ng-click="typeFilter('')">All</span><span ng-repeat="type in types" class="label label-primary" ng-click="typeFilter(type.name)" ng-style="{'background-color': type.color}">{{type.name}}</span></div>
