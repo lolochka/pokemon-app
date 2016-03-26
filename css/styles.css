@@ -42,7 +42,13 @@ body {
 
 .card {
     overflow: hidden;
+    -webkit-transition: all .3s;
+    -moz-transition: all .3s;
+    -ms-transition: all .3s;
+    -o-transition: all .3s;
+    transition: all .3s;
 }
+
 .img-container img{
     max-width: 100%;
     max-height: 100%;
@@ -80,10 +86,6 @@ a.card {
     color: #000;
 }
 
-.card.single-card{
-    min-height: 641.375px;
-}
-
 .card.active, a.card:focus, a.card:hover {
     background-color: #ECF0F1;
     color: #000;
@@ -105,10 +107,11 @@ button.loading:disabled {
 @keyframes spin {to {transform: rotate(360deg);}}
 
 .spinner {
-    content: url(/img/logo.svg);
+    content: "";
+    background-image: url(/img/logo.svg);
     height: 120px;
     width: 120px;
-    margin: 50% auto;
+    margin: 120px auto;
     border-radius: 50%;
     opacity: .5;
     clear: both;
