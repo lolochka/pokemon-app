@@ -72,10 +72,12 @@ pokedexApp.controller('mainController', ['$scope', '$filter', 'PokemonApi', 'Col
     $scope.isActive = function(name,item) {
         return $scope.selected[name] === item;
     };
-}]);
-
-pokedexApp.controller('pokemonController', ['$scope', '$routeParams', 'PokemonApi', '$location', function ($scope, $routeParams, PokemonApi, $location) {
+}])
     
+    .controller('pokemonController', ['$scope', '$routeParams', 'PokemonApi', '$location', function ($scope, $routeParams, PokemonApi, $location) {
+    
+    $scope.popUp(); 
+        
     PokemonApi.get($routeParams.id).success(function (data) {
         $scope.pokemon = data;
     }).error(function(){
