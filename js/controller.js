@@ -8,17 +8,21 @@ pokedexApp.controller('mainController', ['$scope', '$filter', 'PokemonApi', 'Col
     $scope.offset = $scope.limit;
     
     //get pokemons and their types
-    PokemonApi.getAll({
-        limit: $scope.limit
-    }).success(function (data) {
-        $scope.total = data.meta.total_count;
-        $scope.pokemons = data.objects;
-        PokemonApi.getTypes().success(function (data) {
-            var types = data.objects;
-            types.map(function(obj){
-                obj.color = ColorSevice.getHsvGolden(0.5, 0.8).toRgbString();
-            });
-            $scope.types= types;
+    PokemonApi.getTypes().success(function (data) {
+        var types = data.objects;
+        types.map(function(obj){
+            obj.color = ColorSevice.getHsvGolden(0.5, 0.8).toRgbString();
+        });
+        $scope.types= types;
+        PokemonApi.getAll({
+            limit: $scope.limit
+        }).success(function (data) {
+            $scope.total = data.meta.total_count;
+            $scope.pokemons = data.objects;
+            //show only actual types
+            $scope.checkType = function(item) {
+                return $filter('filter')($scope.pokemons, {types: {name: item.name}}).length > 0;
+            };
         });
     });
     
@@ -47,11 +51,6 @@ pokedexApp.controller('mainController', ['$scope', '$filter', 'PokemonApi', 'Col
         if (type) {
             return type[0].color;
         }
-    };
-    
-    //show only actual types
-    $scope.checkType = function(item) {
-        return $filter('filter')($scope.pokemons, {types: {name: item.name}}).length > 0;
     };
     
     //show single pokemon
