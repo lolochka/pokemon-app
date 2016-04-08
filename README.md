@@ -1,7 +1,6 @@
 # Pokedex 
 
-A pokemon searching tool.
-
+Visit [web version](htpp://lolochka.github.io/pokemon-app) or use it localy
 
 ### Clone pokemon-app
 
