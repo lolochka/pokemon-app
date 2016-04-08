@@ -1,6 +1,6 @@
 # Pokedex 
 
-Visit [web version](htpp://lolochka.github.io/pokemon-app) or use it localy
+Visit [web version](http://lolochka.github.io/pokemon-app/) or use it localy
 
 ### Clone pokemon-app
 
